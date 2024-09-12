@@ -27,7 +27,10 @@ export component MainWindow inherits Window {
         ExtraBar {}
     }
     
-    TopBar {}
+    TopBar {
+        project-name: project.name;
+        project-tempo: project.tempo;
+    }
 
 }
 
