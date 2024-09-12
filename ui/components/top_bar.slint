@@ -1,0 +1,216 @@
+component MenuButton inherits Rectangle {
+
+    in property<string> text: "Button";
+
+    in property <[string]> DropdownItems: ["item 1", "item 2", "item 3", "item 4", ];
+
+    height: 100%;
+    width: 25%;
+
+    buttonText := Text { text: text; color: black; }
+    buttonArea := TouchArea { 
+        width: parent.width; height: parent.height;
+    }
+
+    states [
+
+        hover when buttonArea.has-hover: {
+            root.background: #eeeeee;
+        }
+
+    ]
+
+    dropdown := Rectangle {
+
+        x: 0;
+        y: 32px;
+        width: 100px;
+        height: DropdownItems.length * 32px;
+        visible: false;
+
+        dropdownArea := TouchArea {
+            height: parent.height;
+            width: parent.width;
+        }
+
+
+        for item[i] in DropdownItems : Rectangle {
+            x: 0;
+            y: i * 32px;
+            width: 100%;
+            height: 32px;
+            background: #dddddd;
+            Text { x: 10px; text: DropdownItems[i]; color: black; }
+        }
+
+        states [
+            open when dropdownArea.has-hover || buttonArea.has-hover: {
+                dropdown.visible: true;
+            }
+        ]
+    }
+
+}
+
+component PlaybackButton inherits Rectangle {
+
+    in property<bool> play: false;
+    in property<bool> pause: false;
+    in property<bool> stop: false;
+
+
+    height: 100%;
+    width: 12.5%;
+    
+    touchArea := TouchArea { width: parent.width; height: parent.height; }
+
+    Rectangle {
+        width: 16px;
+        height: 16px;
+
+        playIcon := Path {
+            visible: false;
+            width: parent.width;
+            height: parent.height;
+            commands: "M18 11L0 21.3923L0 0.607696L18 11Z";
+            fill: #7847FF;
+        }
+    
+        stopIcon := Rectangle {
+            visible: false;
+            width: parent.width;
+            height: parent.height;
+            background: #7847FF;
+        }
+
+        states [
+            play when play: {
+                playIcon.visible: true;
+            }
+    
+            pause when pause: {
+    
+            }
+    
+            stop when stop: {
+                stopIcon.visible: true;
+            }
+        ]
+        
+    }
+        
+    states [
+
+        hover when touchArea.has-hover: {
+            root.background: #303d4f;
+        }
+
+    ]
+
+}
+
+component MenuBar inherits Rectangle {
+
+    HorizontalLayout {
+        MenuButton {
+            text: "File";
+        }
+        MenuButton {
+            text: "Edit";
+        }
+        MenuButton {
+            text: "View";
+        }
+        MenuButton {
+            text: "Help";
+        }
+    }
+
+}
+
+component ToolBar inherits Rectangle {
+
+    HorizontalLayout {
+        MenuButton {
+            text: "Tracks";
+        }
+        MenuButton {
+            text: "Mixer";
+        }
+        MenuButton {
+            text: "MIDI";
+        }
+        MenuButton {
+            text: "Audio";
+        }
+    }
+
+}
+
+component StatusBar inherits Rectangle {
+
+    in property <string> project-name: "Project Name";
+
+    background: #eeeeee;
+
+    HorizontalLayout {
+
+        alignment: space-between;
+
+        PlaybackButton {
+            play: true;
+        }
+        PlaybackButton {
+            stop: true;
+        }
+
+        Rectangle {
+            height: 100%;
+            width: 50%;
+            Text { text: project-name; color: black; }
+        }
+        
+        Rectangle {
+            height: 100%;
+            width: 25%;
+            Text { text: "120.00"; }
+        }
+
+    }
+
+}
+
+export component TopBar inherits Rectangle {
+
+    in-out property <string> project-name: "Project Name";
+
+    Rectangle {
+
+        x: 0;
+        y: 0;
+        width: 100%;
+        height: 32px;
+        background: #ffffff;
+
+        HorizontalLayout {
+            alignment: space-between;
+            MenuBar {
+                width: 192px;
+                height: 100%;
+            }
+
+            StatusBar {
+                width: 512px;
+                height: 100%;
+                project-name: project-name;
+            }
+
+            ToolBar {
+                width: 192px;
+                height: 100%;
+            }
+        }
+    
+    }
+
+}

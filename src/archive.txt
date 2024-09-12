@@ -1,0 +1,42 @@
+#[derive(Clone)]
+struct Track {
+    name: String,
+    index: i32
+}
+
+struct Project {
+    name: String,
+    tempo: i32,
+    tracks: Vec<Track>
+}
+
+
+impl Track {
+    fn new(new_name: String, new_index: i32) -> Track {
+        return Track {
+            name: new_name,
+            index: new_index
+        };
+    }
+}
+
+impl Project {
+    fn new(new_name: String, new_tempo: i32, new_tracks: Vec<Track>) -> Project {
+        return Project {
+            name: new_name,
+            tempo: new_tempo,
+            tracks : new_tracks
+        };
+    }
+}
+
+let tracks: Vec<Track> = [
+        Track::new("Guitar".to_string(), 1),
+        Track::new("Bass".to_string(), 2),
+        Track::new("Drums".to_string(), 3)
+    ].to_vec();
+    let new_project: Project = Project::new(
+        "Test Project".to_string(),
+        120,
+        tracks
+    );

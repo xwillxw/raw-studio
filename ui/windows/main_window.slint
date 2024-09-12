@@ -1,0 +1,40 @@
+import { TopBar } from "../components/top_bar.slint";
+import { ExtraBar } from "../components/extra_bar.slint";
+import { TrackList, TrackData } from "../components/track_list.slint";
+import { PlayList } from "../components/playlist.slint";
+
+
+export struct Project {
+    name: string,
+    tempo: int,
+    tracks: [TrackData]
+}
+
+export component MainWindow inherits Window {
+
+    in-out property<Project> project;
+
+    preferred-width: 1280px;
+    preferred-height: 720px;
+
+    
+    TrackList { tracks: project.tracks; }
+
+    PlayList {}
+    
+    VerticalLayout {
+        alignment: end;
+        ExtraBar {}
+    }
+    
+    TopBar {}
+
+}
+
+// Pallette:
+// BG: #10141a
+// PR: #7847ff
+// SE: #ff70c8
+// TE: #00ffd0
+// AL: #ffb914
+// ER: #ff4747

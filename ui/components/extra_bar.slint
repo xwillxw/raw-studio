@@ -1,0 +1,51 @@
+component ExtraBar inherits Rectangle {
+    
+    Rectangle {
+
+        width: 100%;
+        height: 16px;
+        background: #0a0c10;
+        
+        
+
+        HorizontalLayout {
+            
+            alignment: space-between;
+            Rectangle {
+                Text {
+                    text: " R.A.W Studio v0.1.0";
+                    color: #444444;
+                }
+            }
+            Rectangle {
+                
+                width: 200px;
+                HorizontalLayout {
+                    alignment: space-between;
+                    Text {
+                        text: "GitHub";
+                        color: #444444;
+                    }
+                    Text {
+                        text: "Discord";
+                        color: #444444;
+                    }
+                    Text {
+                        text: "Donate";
+                        color: #444444;
+                    }
+                    Text {
+                        text: "Credits ";
+                        color: #444444;
+                    }
+                }
+            }
+        }
+
+    }
+    
+
+    
+}
+
+export { ExtraBar }
